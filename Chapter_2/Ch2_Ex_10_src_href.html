@@ -1,0 +1,59 @@
+<html ng-app='myApp'>
+
+<head></head>
+
+<body ng-controller="ImageController">
+
+    <!--
+        Documentation says that this kind of reference in images
+        are not rendered properly on browser.
+        I tested this code on chrome browser and I can notice not difference
+        when the image is rendered using "src" or "ng-src".
+
+        P.S:
+        Looking in development console, when the page is loaded throws
+        the following  error net::ERR_FILE_NOT_FOUND, maybe the image
+        is rendered because angularJS is monitoring the double-brackets {{}} expressions,
+        ot by the browser itself.
+    -->
+    <img src="img/{{myImage}}" alt="MyImage Not Loading/Rendering well." />
+    <!--
+        Instead, you should use the ng-src attribute and write your template as:
+    -->
+    <img ng-src="img/{{myImage}}" />
+    <br/>
+
+    <!--
+        Similarly, for the <a> tag, you should use ng-href.
+    -->
+    <a href="/shop/category={{numberOfBalloons}}">some text</a>
+
+    <a ng-href="/shop/category={{numberOfBalloons}}">some text</a>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script>
+        /*
+         * Declaring a module called myApp
+         * remember that keeping things out of the global namespace is a good thing and that modules are the
+         * mechanism we use to do so.
+         */
+        var myAppModule = angular.module('myApp', []);
+
+        /*
+         * The right way to define a controller is as part of something called a module,
+         * which provides a namespace for related parts of your application.
+         */
+        myAppModule.controller('ImageController', function ($scope) {
+            /*
+                Image Name
+            */
+            $scope.myImage = "Git-Logo.png";
+
+            $scope.numberOfBalloons = 3;
+        });
+    </script>
+</body>
+
+</html>

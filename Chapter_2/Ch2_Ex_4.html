@@ -1,0 +1,52 @@
+<html ng-app='myApp'>
+
+<body>
+
+
+    <form ng-submit="requestFunding()" ng-controller="StartUpController">
+        Starting:
+        <input ng-change="computeNeeded()" ng-model="funding.startingEstimate"> Recommendation: {{funding.needed}} <!-- error fixed adding funding.. -->
+        <button>Fund my startup!</button>
+        <button ng-click="reset()">Reset</button>
+    </form>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js">
+    </script>
+    <script>
+        /*
+         * Declaring a module called myApp
+         * remember that keeping things out of the global namespace is a good thing and that modules are the
+         * mechanism we use to do so.
+         */
+        var myAppModule = angular.module('myApp', []);
+
+        /*
+         * The right way to define a controller is as part of something called a module,
+         * which provides a namespace for related parts of your application.
+         */
+
+        myAppModule.controller('StartUpController', function ($scope) {
+            $scope.funding = {
+                startingEstimate: 0
+            };
+            $scope.computeNeeded = function () {
+                $scope.funding.needed = $scope.funding.startingEstimate * 10;
+            };
+
+            $scope.requestFunding = function () {
+                window.alert("Sorry, please get more customers first.");
+            };
+
+            $scope.reset = function () {
+                console.log("passed");
+                $scope.funding.startingEstimate = 0;
+                $scope.funding.needed = 0;
+            };
+
+        });
+    </script>
+</body>
+
+</html>

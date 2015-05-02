@@ -1,0 +1,57 @@
+<html ng-app='myApp'>
+
+<body ng-controller='TextController'>
+
+
+    <form ng-controller="StartUpController">
+        Starting:
+
+        <!--    For input elements, you use the ng-change attribute to specify a
+                controller method that should be
+                called whenever the user changes the input’s value.    -->
+
+        <input ng-change="computeNeeded()" ng-model="funding.startingEstimate">
+
+        Recommendation: {{funding.needed}}
+    </form>
+
+<!--  ****************************************************
+                So.... What's the error/ problem /issue?
+      ****************************************************
+        The issue....
+        is that we’re only recomputing the needed amount when users **** type in the input field*****.
+        This works fine if this input field is only ever updated when users type in this particular
+        input. But what if other inputs bind to this property in the model?
+        What if it gets updated when data comes in from the server?
+-->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js">
+    </script>
+    <script>
+        /*
+         * Declaring a module called myApp
+         * remember that keeping things out of the global namespace is a good thing and that modules are the
+         * mechanism we use to do so.
+         */
+        var myAppModule = angular.module('myApp', []);
+
+        /*
+         * The right way to define a controller is as part of something called a module,
+         * which provides a namespace for related parts of your application.
+         */
+
+        myAppModule.controller('StartUpController', function($scope) {
+            $scope.funding = {
+                startingEstimate: 0
+            };
+            $scope.computeNeeded = function () {
+
+                /* The written code in the book has an error to diplay the right value, I've fixed. */
+                $scope.funding.needed = $scope.funding.startingEstimate * 10;
+            };
+        });
+    </script>
+</body>
+
+</html>

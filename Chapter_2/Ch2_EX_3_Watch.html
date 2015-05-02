@@ -1,0 +1,55 @@
+<html ng-app='myApp'>
+
+<body>
+
+
+    <form ng-controller="StartUpController">
+        Starting:
+
+        <input  ng-model="funding.startingEstimate">
+
+        Recommendation: {{funding.needed}}
+    </form>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js">
+    </script>
+    <script>
+        /*
+         * Declaring a module called myApp
+         * remember that keeping things out of the global namespace is a good thing and that modules are the
+         * mechanism we use to do so.
+         */
+        var myAppModule = angular.module('myApp', []);
+
+        /*
+         * The right way to define a controller is as part of something called a module,
+         * which provides a namespace for related parts of your application.
+         */
+
+        myAppModule.controller('StartUpController', function($scope) {
+            $scope.funding = {
+                startingEstimate: 0
+            };
+            $scope.computeNeeded = function () {
+
+
+                $scope.funding.needed = $scope.funding.startingEstimate * 10;
+            };
+
+
+            /*
+             * To update the field no matter how it gets updated,
+             * we want to use a $scope function called $watch().
+            */
+
+            /* The written code in the book has an error to call computeNeeded,
+             * I've fixed adding a directive '$scope'.
+             */
+            $scope.$watch('funding.startingEstimate', $scope.computeNeeded);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<html ng-app='myApp'>
+
+<body>
+
+    <div ng-controller='DeathrayMenuController'>
+        <button ng-click='toggleMenu()'>Toggle Menu</button>
+        <ul ng-show='menuState.show'>
+            <li ng-click='stun()'>Stun</li>
+            <li ng-click='disintegrate()'>Disintegrate</li>
+            <li ng-click='erase()'>Erase from history</li>
+        </ul>
+        <div/>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+        <script>
+            /*
+             * Declaring a module called myApp
+             * remember that keeping things out of the global namespace is a good thing and that modules are the
+             * mechanism we use to do so.
+             */
+            var myAppModule = angular.module('myApp', []);
+
+            /*
+             * The right way to define a controller is as part of something called a module,
+             * which provides a namespace for related parts of your application.
+             */
+
+            myAppModule.controller('DeathrayMenuController', function ($scope) {
+
+                /* Error fixed adding declaration of menuState. TypeError: Cannot set property 'show' of undefined */
+                $scope.menuState ={};
+                $scope.menuState.show = false;
+                $scope.toggleMenu = function () {
+                    console.info("toggleMenu");
+                    $scope.menuState.show = !$scope.menuState.show;
+                };
+                // death ray functions left as exercise to reader
+            });
+        </script>
+</body>
+
+</html>
